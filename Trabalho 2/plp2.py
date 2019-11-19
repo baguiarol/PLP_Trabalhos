@@ -102,13 +102,6 @@ class Grid:
         for i in range(0, w, cell_w):
             self.w.create_line([(0, i), (w, i)])
 
-    def draw_circle(self, lin, col):
-        x = col * self.cell_h
-        y = lin * self.cell_w
-        return self.w.create_oval(x + 10, y + 10,
-        x + self.cell_w - 10, y + self.cell_h - 10,
-        fill = 'blue', outline = '')
-
 
 
 class Server(Thread):
@@ -120,20 +113,61 @@ class Server(Thread):
 
         self.server.listen(5)
         self.client, addr = self.server.accept()
+    
     def process_cmd(self, cmd):
-        # + id shape(c|s) color lin col
-        # - id
-        # m id lin col
+        reply = 'Done.\n'
+        comandos = cmd.split(" ")
+        comandos[len(comandos)-1] = comandos[len(comandos)-1][:-2]
+        
+       
+        
         # + shape(c|s) color lin col
         # - shape(c|s) color
-        # m shape(c|s) color lin col
-        reply = 'Done.\n'
-        c  = Circulo(self.grid.w, 1, 2, 2)
-        c.desenha()
-        #self.grid.draw_circle(2, 2)
-        #id =  lin = col = input() 
+        
 
+        # + id shape(c|s) color lin col
+        if(comandos[0] == '+'): #cria
+            if(len(comandos) == 6):
+                id = int(comandos[1])
+                forma = comandos[2]
+                cor = comandos[3]
+                lin = int(comandos[4])
+                col = int(comandos[5])
+                if(forma == 'c'):
+                    c  = Circulo(self.grid.w, id, cor, lin, col)
+                    c.desenha()
+                else:
+                    q = Quadrado(self.grid.w, id, cor, lin, col)
+                    q.desenha()
+        # - id
+        #if(comendos[0] == '-'): #apaga
+
+        # m shape(c|s) color lin col
+        if(comandos[0] == 'm'):
+            if(len(comandos) == 6):
+                id = int(comandos[1])
+                forma = comandos[2]
+                cor = comandos[3]
+                lin = int(comandos[4])
+                col = int(comandos[5])
+            if(forma == 'c'):
+                    c  = Circulo(self.grid.w, id, cor, lin, col)
+                    c.move()
+                else:
+                    q = Quadrado(self.grid.w, id, cor, lin, col)
+                    q.move()
+        # m id lin col
+        
+
+
+
+
+        #removendo id tal
+        # if nao achou : reply = 'figure not found'
+        
+        
         return reply
+
     def run(self):
         while True:
             try:
@@ -158,10 +192,12 @@ class Server(Thread):
 
 #falta apenas conectar junto ao servidor para fazer o joguinho funcionar
 #falta apagar a figura 
+
 root = Tk()
 root.title('Jogue este crlh e morra')
 grid = Grid(root, 5, 5, cell_h = 60, cell_w = 60)
 #grid.draw_circle(2, 2)
+
 print('Aguardando conexoes...')
 app = Server(grid).start()
 print("Uma conexao encontrada!")
