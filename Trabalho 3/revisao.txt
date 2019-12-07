@@ -1,0 +1,271 @@
+--------------
+SITE: https://sites.google.com/site/plpicompufam2019periodo2
+PROLOG: https://swish.swi-prolog.org
+PROVA FINAL: 16/12			:(
+---------------
+
+
+% PLP - 04/12
+% 
+% -- LINGUAGENS LÓGICAS --
+% 
+% REVISÃO PROLOG: * Processamento simbólico principalmente para aplicações discretas.
+% Ex.: processamento de linguagem natural, (PLN).
+% * Mecanismo de Inferência Lógica (MIL)(Lógica de 1ª ordem - L1O);
+% * Mecanismo ed casamento de padrão;
+% * Mecanismo de unificação de variáveis. Ex: atribui X = Marcio Cristo em gosta(X, denny). True. É um mecanismo interno.
+% * Manipulação simbólica. Ex: gosta(eu, denny) <3
+%
+%
+% CRÍTICAS COMUNS:
+% * Implementação de  mecanismos de inferência lógica viola princípios
+% básicos da lógica de 1ª ordem (L1O).
+% Ex.: sequencia das sentenças é importante (ao contrário de L1O).
+% 
+% * L1O ñ se mostrou  tão relevante para a Inteligência Artificial moderna, como imaginado na década de 70.
+% Ex: PNL com muitos elementos contínuos.
+%
+% * Dependência de efeitos colaterias quando baseasos em predicados dinâmicos (como assert e retract).
+%
+% * Possibilitando de interferir diretamente na MIL (com fail e cut).
+
+
+% Processamento simbolismo discreto:
+%		ex: PLN com DCG.
+%				manipulação direta de simbolos -- ex: goxta(maria,joao): goxta, maria e joao
+%
+%	 Computação transacional é pra OO; 	OO - manutenção e reuso de código; 
+% 
+%  Predicado é função restrita: retorna verdadeiro ou falso.
+%
+% -- na medida do possível nao utilizar assert e retract - prolog aconselha
+
+/*
+----	Paradigma Procedural: -----
+  Principais pontos.
+  * Fluxo de controle - expressão X comandos; sequencia, seleção e iteração: for, while, repeat... recursão;
+  * Tipode de Dados - sistemas de tipos e tipos de dados, uso da memória e coleta de lixo;
+
+  * Procedimentos, funções, 
+  													mecanismos assíncronos - (incluindo exceções): -Extensão "primitiva" em ling. procedurais e 
+  																																					procedimentos -> estender comandos
+                              	                                            funções -> estender expressões
+                                			                                     -objetos 
+                                      			                               -co-rotinas, threads, etc,
+                                                                            mecanismos de exceção(try...except).
+                                                                      
+                                                              
+*/
+
+---------------------------------------------------------------------
+
+% Soma de todos os elementos da lista.
+soma([],0).
+soma([H|T],S):-soma(T,G),S is H+G.% 
+
+
+PLP - 18/11
+% 
+% EXERCÍCIO
+% 
+% 1. Use um prog em Prolog para responder a questão a seguir:
+% 
+% Umma pessoa é feliz quando ela gosta de alguém que gosta dela, 
+% Valery, em particular, gosta de homens jovens e bonitos ou 
+% ricos e fortes. Entre os rapazes que ela conhece:
+% 
+% a) Jean Joseph e Pierre são ricos;
+% b) Gilbert e Jean são fortes;
+% c) Pierre, Jean e Andreas são bonitos;
+% d) Philip é jovem;
+%
+% Sabendo que Philip, Pierre e jean gostam de Valery, Valery é feliz?
+%
+%	2. Crie os seguintes predicados:
+% a) soma(L, S) = V se S é a soma dos elementos da lista L
+% b) prod(L, P) = V se P é o produto dos elementos de L
+% c) membro(X,L) = V se X pertence a L. 
+% d) cont([L1,L2,L3]) = V se L3 é a concatenação de L1 e L2.
+% e) divide(L1, L2, L3) = V se L2 e L3 tem elementos alternados de L1. 
+%    Ex: divide([1,2,3,4,5,6], X, Y) = V se X = [1,3,5] e Y = [2,4,6]
+% f) ocat(L1,L2,L3) = V se L3 é a concatenação ordenada das listas ordenadas L1 e L2.
+%    Ex.: ocat ([1,3,5], [2,3,4], X) = V se X=[1,2,3,4,5]
+% g) mergesort(L, LS) = V se LS é a versão ordenada de L. 
+%		Ex: merdesort([3,1,,1], X) = V se 
+%    		X = [1, 2, 3, 5]
+
+
+---------------------------------------------------
+
+% Programação por casamento de padroes
+% 
+% O prolog é baseado nessa melda, chaca unificação
+% Unificação: casamento de padrões
+
+% Isso n é uma característica intrínseca de uma ling lógica,
+% mas é observado em todas as ling lógicas, mas é observado 
+% em todas as ling logicas implementadas desde a década de 70
+% e em muitas ling funcionais.
+% Também da pra criar listas no prolog;
+
+% 
+% 2 = 2. verdadeiro.
+% X = 2. V se X unifica para 2.
+% 2 = X. idem
+% 5 = 2 + 3. falso, pois 5 nao eh da forma 2 + 5
+% X + Y = 2 + 3. V, se X=2 e Y=3 (= le-se unifica)
+% 5 is 2 + 3. V, pois 5 tem o mesmo valor que 2 + 3
+% homem(X) = homem(bart). V, se X=bart
+% (1,2,3)=(X,Y,Z). V se X=1, Y=2, Z=3
+% Casamento especial com listas ->
+% [X|Y]][1,2,3]. V se X=1 e Y=[2,3] 
+% 
+% 
+ 
+% Fatorial(N, F) = V se F é o fatorial de N
+% caso base -> 0! = 1
+% caso recursivo -> n! = n * (n-1)!
+
+
+
+---------------------------------
+O prolog é baseado nessa melda, chaca unificação
+Unificação: casamento de padrões
+
+Isso n é uma característica intrínseca de uma ling lógica, mas é observado em todas as ling lógicas, mas é observado em todas as ling logicas implementadas desde a década de 70 e em muitas ling funcionais
+
+Também da pra criar listas no prolog;
+
+
+----------------------------
+
+poxa Márcio Cris...
+
+-------
+
+ANOTAÇÕES: LISTA 2 
+1-6 : Parte teórica; 7 e 8 práticas.
+
+8 questões
+A parte prática é a de maior peso na lista
+
+To do:
+vamos precisar fazer requisições socket em Python OO;
+criar a classe de figuras e manipular elas por requisições onde o dado a gente pega como se fosse um vetor de argumentos, os inputs não são tão complicados assim;
+fazer um construtor onde não vamos utilizar o atributo de identificação, vamos ter que setar um identificador (tem que prestar atencao pra ele n setar um id repetido, tem que ser sequêncial guardando o ultimo maior id setado por exemplo) senão vamos acabar mexendo em formas que não deveríamos mexer;
+
+
+Sobre as regrinhas da interação:
+Vamo ter uma matriz 5x5 e o usuário vai colocar formas geométricas dentro das cédulas dessa matriz. 
+Ele pode criar, apagar e mover figuras dentro desse negócio. Ele coloca um identificador na figura se ele quiser, esse identificador deve ser visível pro usuário na interface ou n. O usuário pode apagar qualquer figura sem precisar do id, só colocando a forma e a cor do objeto. Ele pode mover sem um id, colocando a forma, a cor e as coordenadas de destino.
+
+
+Exceções reconhecidas:
+1. Não pode colocar duas formas na mesma posição;
+2. Só pode manipular figuras criadas e presentes na matriz;
+3. Só pode existir um tipo daquele objeto, com aquelas características: cor id e forma.
+
+
+P.S.: te amo Denny (te amo Ada < 3)
+
+O prof tá dando o modelo do socket em Python, temos que testar. Ele diz que usa uma thread pra desenhar os negoços aka figuras :'(
+
+A questão 8 parece ser teórica também, é só pra comparar o Python OO com o Python Funcional, ele dá lá os pontos de comparação.
+
+Acho que o primeiro passo é pegar aquele código que ele já deu e entender como ele funciona, pq a implementação da questão 7 é meio que em cima dele. Ele diz o seguinte: 
+"Este código deve ser estendido para que sejam fornecidas todas as funcionalidades descritas nas figuras de demonstração dadas. [...]". Por enquanto é isto, temos até segunda pra entregar. 
+No formato de entrega, ele diz pra mandar a resposta das questões teóricas + os arquivos de código fonte e instruções pra rodar. A gente pode fazer então, tanto no jupyter quanto em arquivo .py :)
+
+é isto
+
+
+
+-----------------------------------------------------
+       
+       print('\nMetodos')
+        nao_internos = [e for e in dir(prof) if (e[0] != '_')]
+        for e in nao_internos:
+            obj = getattr(prof, e)
+            if hasattr(obj,'__call__'):
+                print(e)
+
+
+------------------------------------------------
+
+escreva as funcoes, usando recursao:
+1. soma(n) ex: = 5+4+3+2+1 = 15
+2. potencia(x,n) x elevado à potneica n; ex: potencia(2,3) = 8
+3. mdc(m, n): max divison comum de m e n, mdc(m, 0) = m; caso contrario, mdc(n, m%n). ex: mdc(12,9) = 3
+4. imprime(ini, fim): imprime todos os valroes no intervalo [ini,fim];
+5. tam(lst): tamanho de uma lista; tam([1,2,3,4]) = 4
+6. soma(lst): soma dos valores de uma lista: ex soma([1,2,3,4]) = 10
+7.  membroo(ele, lst): true se ele esta em lst: ex membro(1,[2,3,4]) = false
+8. inverso(lst): inverso de lst ex: inverso([1,2,3]) = [3,2,1]
+9. palindromo(lst): palindromo de lista = inverso(lst)
+Implemente sem usara funcao inverso. ex: palindromo(([1,2,1]) = true
+10. palindromo(str): palindromo de string
+11. intercala(11,12): intercala listas ordenadas l1 e l2; ex: intercala([1,5,7],[2,3,5,8]) = [1,2,3,5,5,7,8]
+12. mergesort(lst) = ordena lista de acordo com algoritmo merge sort
+
+recursao de cabeca e cauda
+13. somatudo(lst) = somatorio de todos os elementos de uma lista que pode ser formada por sublistas ex: somatudo([[1,2],3,4,[5,[6,[7,8,9]]]] = 45
+
+funcoes de alta ordem
+14. mapeie(f, lst) = map(f,lst)
+15. filtre(f, lst) = filter(f,lst)
+16. reduza(f, lst) = reduce(f, lst)
+17. aplique(x, lst) = alique a lista de funcoes lst a x, por composicao, retornando a lista de valores transformados de x. ex: aplique(1, [labmda x:x+2, lambda x: sqrt(x), lambda x:x*[1]]) = [1,1],[1,2,4,2,[1,1]]
+
+
+--------------------------
+from tkinter import *
+class Quadrado(object):
+    'Implementa um quadrado 2D em TK'
+    def __init__(self, w, x = 0, y = 0, lado = 10, cor = 'black'):
+        self.w = w
+        self.x, self.y = x, y
+        self.lado = lado
+        self.cor = cor
+        self.id = None
+    
+    def set_xy(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def get_xy():
+        return self.x, self.y
+    
+    def area(self):
+        return self.lado*self.lado
+        
+    def desenhar(self):
+        self.id = self.w.create_rectangle(self.x, self.y,
+                                        self.x + self.lado,
+                                        self.y + self.lado,
+                                        outline = self.cor)
+class Circulo(object):
+    'Implementa um circulo 2D em TK'
+    def __init__(self, w, x = 0, y = 0, raio = 10, cor = 'red'):
+        self.w = w
+        self.x, self.y = x, y
+        self.raio = raio
+        self.cor = cor
+        self.id = None
+        
+    def set_xy(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def get_xy():
+        return self.x, self.y
+    
+    def area(self):
+        return 3.1416*raio**2
+        
+    def desenhar(self):
+        self.id = self.w.create_oval(self.x - self.raio, self.y - self.raio,
+                                        self.x + self.raio,
+                                        self.y + self.raio,
+                                        outline = self.cor)
+                                        
+--------------------------------------------------------------                                        
